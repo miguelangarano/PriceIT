@@ -79,7 +79,7 @@ class _ComboContainerState extends State<ComboContainer>{
                         width: 150,
                         height: 80,
                         child: CachedNetworkImage(
-                          placeholder: CircularProgressIndicator(),
+                          placeholder: Image.asset('assets/loader.gif', ),
                           imageUrl: 'https://picsum.photos/250?image=9',
                         ),
                       ),
