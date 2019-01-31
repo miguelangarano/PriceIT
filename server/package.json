@@ -1,0 +1,25 @@
+{
+  "name": "pricejs",
+  "version": "1.0.0",
+  "description": "empezando",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION =false npm install --prefix client && run build --prefix client"
+  },
+  "author": "ngloni",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "express-image": "0.0.2",
+    "express-processimage": "^8.0.2",
+    "mongoose": "^5.4.7",
+    "multer": "^1.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
