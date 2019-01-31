@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+import '../Entities/user.dart';
 
 class LoginView extends StatefulWidget{
 
-  LoginView(this.widthToPercent, this.heightToPercent, this._callback, this._context, this.callbackRoot);
+  LoginView(this.widthToPercent, this.heightToPercent, this._callback, this._context, this.callbackRoot, this.callbackUser);
   Function(double) widthToPercent;
   Function(double) heightToPercent;
   Function(int) callbackRoot;
   Function(int) _callback;
+  Function(User) callbackUser;
   BuildContext _context;
 
   @override
@@ -21,10 +25,23 @@ class _LoginViewState extends State<LoginView>{
   TextEditingController _emailController=new TextEditingController();
   TextEditingController _passwordController=new TextEditingController();
 
-  submitButtonPressed(){
+  submitButtonPressed() async{
+    var url = "https://www.googleapis.com/books/v1/volumes?q={http}";
     if(_emailController.text!="" && _passwordController.text!=""){
       print("ok");
-      widget.callbackRoot(1);
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponse = convert.jsonDecode(response.body);
+        var itemCount = jsonResponse['items'][0]['volumeInfo']['title'];
+
+
+        //User user = new User(id, username, password, email, rating, products);
+        //widget.callbackUser(user);
+        widget.callbackRoot(1);
+        print("Number of books about http: $itemCount.");
+      } else {
+        print("Request failed with status: ${response.statusCode}.");
+      }
     }
   }
 
@@ -119,7 +136,7 @@ class _LoginViewState extends State<LoginView>{
                 opacity: 0.7,
                 child: Text(
                   texto1,
-                  style: TextStyle(color: Colors.black, fontSize: 10),
+                  style: TextStyle(color: Colors.black, fontSize: 7),
                 )
             ),
             Opacity(

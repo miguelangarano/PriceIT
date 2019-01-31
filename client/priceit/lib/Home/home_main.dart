@@ -9,8 +9,9 @@ import 'package:swipedetector/swipedetector.dart';
 
 class HomeMain extends StatefulWidget{
 
-  HomeMain(this.callbackRoot);
+  HomeMain(this.callbackRoot, this.callbackUser);
   Function(int) callbackRoot;
+  Function(User) callbackUser;
 
   @override
   State<StatefulWidget> createState() {
@@ -22,8 +23,7 @@ class HomeMain extends StatefulWidget{
 class _HomeMainState extends State<HomeMain>{
   MediaQueryData _queryData;
   int _whereiam=0;
-  //bool main=true, beer=false, sale=false, cigarette=false, drink=false;
-  List<Product> _productList = new List(2);
+  List<Product> _productList = new List();
 
 
   double widthToPercent(double value) {
@@ -50,10 +50,14 @@ class _HomeMainState extends State<HomeMain>{
 
   @override
   Widget build(BuildContext context) {
-    _productList[0]=new Product("12345", "http://nada.com/image.jpg", "Miguel Langarano", 3.75, 4, "Detergente Mas", "Quicentro Norte", 300, "gr", DateTime.now());
-    _productList[1]=new Product("12345", "http://nada.com/image.jpg", "Miguel Langarano", 3.75, 4, "Detergente Mas", "Quicentro Norte", 300, "gr", DateTime.now());
-    _productList[2]=new Product("12345", "http://nada.com/image.jpg", "Miguel Langarano", 3.75, 4, "Detergente Mas", "Quicentro Norte", 300, "gr", DateTime.now());
-    _queryData = MediaQuery.of(context);
+    Product value = new Product("12345", "http://nada.com/image.jpg", "Miguel Langarano", 3.75, 4, "Detergente Mas", "Quicentro Norte", 300, "gr", DateTime.now());
+    _productList.clear();
+    _productList.add(value);
+    _productList.add(value);
+    _productList.add(value);
+    _productList.add(value);
+    _productList.add(value);
+     _queryData = MediaQuery.of(context);
     // TODO: implement build
     if(_whereiam==-1){
       return SwipeDetector(
@@ -217,6 +221,7 @@ class _HomeMainState extends State<HomeMain>{
   Widget SecondView(){
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomPadding: false,
         body: Container(
             width: widthToPercent(100),
             height: heightToPercent(100),
@@ -230,7 +235,9 @@ class _HomeMainState extends State<HomeMain>{
                   width: widthToPercent(100),
                   height: heightToPercent(94),
                   color: Colors.white,
-                  child: ProductView(widthToPercent, heightToPercent, callback, context, _productList),
+                  child: SingleChildScrollView(
+                    child: ProductView(widthToPercent, heightToPercent, callback, context, _productList),
+                  )
                 ),
                 Container(
                     width: widthToPercent(100),

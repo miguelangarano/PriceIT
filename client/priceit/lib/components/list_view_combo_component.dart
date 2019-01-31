@@ -44,6 +44,7 @@ class _ListViewComboComponentState extends State<ListViewComboComponent>{
 
   Widget Grids(){
     if(widget.widthToPercent(100)>=360){
+      print("Cant: "+widget._comboList.length.toString());
       return GridView.count(
         childAspectRatio: (1 / 0.5),
         crossAxisSpacing: 10,
@@ -57,6 +58,7 @@ class _ListViewComboComponentState extends State<ListViewComboComponent>{
         }),
       );
     }else{
+      print("Cant: "+widget._comboList.length.toString());
       return GridView.count(
         childAspectRatio: (1 / 0.5),
         crossAxisSpacing: 10,

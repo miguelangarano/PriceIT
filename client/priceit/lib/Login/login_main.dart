@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'login_view.dart';
 import 'register_view.dart';
 import 'reset_view.dart';
-
+import '../Entities/user.dart';
 
 class LoginMain extends StatefulWidget{
 
-  LoginMain(this.callbackRoot);
+  LoginMain(this.callbackRoot, this.callbackUser);
   Function(int) callbackRoot;
+  Function(User) callbackUser;
 
   @override
   State<StatefulWidget> createState() {
@@ -97,7 +98,7 @@ class _LoginMainState extends State<LoginMain>{
                     ],
                   ),
                   Switch(value: _value, onChanged: (bool value){_onChanged(value);}, activeColor: Color.fromRGBO(33, 33, 33, 1),),
-                  LoginView(widthToPercent, heightToPercent, callback, context, widget.callbackRoot)
+                  LoginView(widthToPercent, heightToPercent, callback, context, widget.callbackRoot, widget.callbackUser)
                 ],
               ),
             )

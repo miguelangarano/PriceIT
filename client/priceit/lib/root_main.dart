@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './Login/login_main.dart';
 import './Home/home_main.dart';
+import './Entities/user.dart';
 
 
 class RootMain extends StatefulWidget{
@@ -13,10 +14,17 @@ class RootMain extends StatefulWidget{
 
 class _RootMainState extends State<RootMain>{
   int _whereiam=0;
+  User _user;
 
   callbackRoot(int value){
     setState(() {
       _whereiam=value;
+    });
+  }
+
+  callbackUser(User user){
+    setState(() {
+      _user=user;
     });
   }
 
@@ -25,9 +33,9 @@ class _RootMainState extends State<RootMain>{
     // TODO: implement build
     //return LoginView(widthToPercent, heightToPercent, callback);
     if(_whereiam==0){
-      return LoginMain(callbackRoot);
+      return LoginMain(callbackRoot, callbackUser);
     }else if(_whereiam==1){
-      return HomeMain(callbackRoot);
+      return HomeMain(callbackRoot, callbackUser);
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Entities/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ComboContainer extends StatefulWidget{
 
@@ -77,7 +78,10 @@ class _ComboContainerState extends State<ComboContainer>{
                         padding: EdgeInsets.only(bottom: 5),
                         width: 150,
                         height: 80,
-                        child: Image.asset('assets/combo.jpg', ),
+                        child: CachedNetworkImage(
+                          placeholder: CircularProgressIndicator(),
+                          imageUrl: 'https://picsum.photos/250?image=9',
+                        ),
                       ),
                       Container(
                         child: Text("\$"+widget._combo.price.toString()),
@@ -93,8 +97,7 @@ class _ComboContainerState extends State<ComboContainer>{
                           height: widget.heightToPercent(10),
                           width: widget.widthToPercent(35),
                           child: GridView.count(
-                            childAspectRatio: (1 / 0.20),
-                            crossAxisSpacing: 10,
+                            childAspectRatio: (1 / 0.8),
                             padding: EdgeInsets.only(left: 3, right: 3),
                             mainAxisSpacing: 0.1,
                             // crossAxisCount is the number of columns
@@ -102,6 +105,7 @@ class _ComboContainerState extends State<ComboContainer>{
                             // This creates two columns with two items in each column
                             children: List.generate(1, (index) {
                               return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text("Cont: "+widget._combo.content.toString()+" "+widget._combo.contentUnit, style: TextStyle(fontSize: 10),),
                                   Text("Precio: \$"+widget._combo.price.toString(), style: TextStyle(fontSize: 10),),
@@ -114,64 +118,14 @@ class _ComboContainerState extends State<ComboContainer>{
                           )
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 5),
+                        margin: EdgeInsets.only(top: widget.heightToPercent(3)),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Text("Cantidad", style: TextStyle(fontSize: 7),),
-                                  Container(
-                                    decoration: new BoxDecoration(
-                                        color: Color.fromRGBO(255, 255, 255, 1),
-                                        borderRadius: new BorderRadius.all(Radius.circular(30)),
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                            color: Colors.black,
-                                            offset: Offset(0.0, 5.0),
-                                            blurRadius: 5.0,
-                                          )
-                                        ]
-                                    ),
-                                    child: Row(
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () => onTapPlus(0),
-                                          child: Icon(Icons.add_circle, color: Colors.black, size: 20,),
-                                        ),
-                                        Padding(padding: EdgeInsets.all(2),),
-                                        Text(_quantity.toString()),
-                                        Padding(padding: EdgeInsets.all(2),),
-                                        GestureDetector(
-                                          onTap: () => onTapLess(0),
-                                          child: Icon(Icons.remove_circle, color: Colors.black, size: 20,),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => addToCart(widget._combo.id, _quantity),
-                              child: Container(
-                                margin: EdgeInsets.only(left: 18),
-                                padding: EdgeInsets.all(3.5),
-                                decoration: new BoxDecoration(
-                                    color: Color.fromRGBO(31, 31, 31, 0.8),
-                                    borderRadius: new BorderRadius.all(Radius.circular(100)),
-                                    boxShadow: <BoxShadow>[
-                                      BoxShadow(
-                                        color: Color.fromRGBO(31, 31, 31,0.8),
-                                        offset: Offset(0.0, 3.0),
-                                        blurRadius: 5.0,
-                                      )
-                                    ]
-                                ),
-                                child: Icon(Icons.add_shopping_cart, color: Colors.white, size: 24,),
-                              ),
-                            )
+                            Icon(Icons.star, color: Colors.yellow, size: 20,),
+                            Icon(Icons.star, color: Colors.yellow, size: 20,),
+                            Icon(Icons.star, color: Colors.yellow, size: 20,),
+                            Icon(Icons.star, color: Colors.grey, size: 20,),
+                            Icon(Icons.star, color: Colors.grey, size: 20,),
                           ],
                         ),
                       )
